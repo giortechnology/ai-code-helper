@@ -1,8 +1,12 @@
 package com.yupi.aicodehelper.ai;
 
+import dev.langchain4j.rag.content.Content;
+import dev.langchain4j.service.Result;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -35,8 +39,11 @@ class AiCodeHelperServiceTest {
 
     @Test
     void chatWithRag() {
-        String result = aiCodeHelperService.chat("怎么学习 Java？有哪些常见面试题？");
-        System.out.println(result);
+        Result<String> result = aiCodeHelperService.chatWithRag("怎么学习 Java？有哪些常见面试题？");
+        String content = result.content();
+        List<Content> sources = result.sources();
+        System.out.println(content);
+        System.out.println(sources);
     }
 
     @Test
