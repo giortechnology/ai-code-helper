@@ -38,4 +38,10 @@ class AiCodeHelperServiceTest {
         String result = aiCodeHelperService.chat("怎么学习 Java？有哪些常见面试题？");
         System.out.println(result);
     }
+
+    @Test
+    void chatWithTools() {
+        String result = aiCodeHelperService.chat("有哪些常见的计算机网络面试题？");
+        System.out.println(result);
+    }
 }

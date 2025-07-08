@@ -1,6 +1,7 @@
 package com.yupi.aicodehelper.ai;
 
 import com.alibaba.dashscope.assistants.Assistant;
+import com.yupi.aicodehelper.ai.tools.InterviewQuestionTool;
 import dev.langchain4j.data.document.Document;
 import dev.langchain4j.data.document.loader.FileSystemDocumentLoader;
 import dev.langchain4j.data.document.splitter.DocumentByParagraphSplitter;
@@ -69,6 +70,7 @@ public class AiCodeHelperServiceFactory {
                 .chatModel(qwenChatModel)
                 .chatMemory(chatMemory)
                 .contentRetriever(contentRetriever) // RAG 检索增强生成
+                .tools(new InterviewQuestionTool()) // 工具调用
                 .build();
         return aiCodeHelperService;
     }
