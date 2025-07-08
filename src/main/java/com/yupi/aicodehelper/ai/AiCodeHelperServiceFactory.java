@@ -6,7 +6,8 @@ import jakarta.annotation.Resource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+//改为自动创建
+//@Configuration
 public class AiCodeHelperServiceFactory {
 
     @Resource
