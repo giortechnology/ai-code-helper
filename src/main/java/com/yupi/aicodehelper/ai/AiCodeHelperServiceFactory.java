@@ -28,7 +28,7 @@ import java.util.List;
 public class AiCodeHelperServiceFactory {
 
     @Resource
-    private ChatModel qwenChatModel;
+    private ChatModel myQwenChatModel;
 
     @Resource
     private ContentRetriever contentRetriever;
@@ -42,7 +42,7 @@ public class AiCodeHelperServiceFactory {
         ChatMemory chatMemory = MessageWindowChatMemory.withMaxMessages(10);
         // 构造 AI Service
         AiCodeHelperService aiCodeHelperService = AiServices.builder(AiCodeHelperService.class)
-                .chatModel(qwenChatModel)
+                .chatModel(myQwenChatModel)
                 .chatMemory(chatMemory)
                 .contentRetriever(contentRetriever) // RAG 检索增强生成
                 .tools(new InterviewQuestionTool()) // 工具调用
