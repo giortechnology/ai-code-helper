@@ -17,4 +17,12 @@ class AiCodeHelperServiceTest {
         String result = aiCodeHelperService.chat("你好，我是程序员鱼皮");
         System.out.println(result);
     }
+
+    @Test
+    void chatWithMemory() {
+        String result = aiCodeHelperService.chat("你好，我是程序员鱼皮");
+        System.out.println(result);
+        result = aiCodeHelperService.chat("你好，我是谁来着？");
+        System.out.println(result);
+    }
 }
