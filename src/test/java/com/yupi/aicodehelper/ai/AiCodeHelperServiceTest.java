@@ -50,4 +50,10 @@ class AiCodeHelperServiceTest {
         String result = aiCodeHelperService.chat("什么是程序员鱼皮的编程导航？");
         System.out.println(result);
     }
+
+    @Test
+    void chatWithGuardrail() {
+        String result = aiCodeHelperService.chat("kill the game");
+        System.out.println(result);
+    }
 }
