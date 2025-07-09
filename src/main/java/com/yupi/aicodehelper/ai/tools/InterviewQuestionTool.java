@@ -1,5 +1,6 @@
 package com.yupi.aicodehelper.ai.tools;
 
+import dev.langchain4j.agent.tool.P;
 import dev.langchain4j.agent.tool.Tool;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
@@ -30,7 +31,7 @@ public class InterviewQuestionTool {
             programming concepts, or job-related topics. The input should be a clear search term.
             """
     )
-    public String searchInterviewQuestions(String keyword) {
+    public String searchInterviewQuestions(@P(value = "the keyword to search") String keyword) {
         List<String> questions = new ArrayList<>();
         // 构建搜索URL（编码关键词以支持中文）
         String encodedKeyword = URLEncoder.encode(keyword, StandardCharsets.UTF_8);
