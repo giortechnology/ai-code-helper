@@ -1,64 +1,64 @@
 <template>
-  <div class="chat-message" :class="{ 'user-message': isUser, 'ai-message': !isUser }">
-    <div class="message-avatar">
-      <div class="avatar" :class="{ 'user-avatar': isUser, 'ai-avatar': !isUser }">
-        {{ isUser ? '我' : 'AI' }}
-      </div>
-    </div>
-    <div class="message-content">
+  <section class="chat-message" :class="{ 'user-message': isUser, 'ai-message': !isUser }">
+    <aside class="message-avatar">
+      <pre class="avatar" :class="{ 'user-avatar': isUser, 'ai-avatar': !isUser }">
+        {{ isUser ? "我" : "AI" }}
+      </pre>
+    </aside>
+    <section class="message-content">
       <div class="message-bubble">
         <!-- 用户消息使用普通文本 -->
         <pre v-if="isUser" class="message-text">{{ message }}</pre>
         <!-- AI回复使用Markdown渲染 -->
-        <div v-else class="message-markdown" v-html="renderedMessage"></div>
+        <pre v-else class="message-markdown" v-html="renderedMessage"></pre>
       </div>
-      <div class="message-time">{{ formatTime(timestamp) }}</div>
-    </div>
-  </div>
+      <span class="message-time">{{ formatTime(timestamp) }}</span>
+    </section>
+  </section>
 </template>
 
 <script>
-import { formatTime } from '../utils/index.js'
-import { marked } from 'marked'
+import { formatTime } from "../utils/index.js";
+import { marked } from "marked";
 
 export default {
-  name: 'ChatMessage',
+  name: "ChatMessage",
   props: {
     message: {
       type: String,
-      required: true
+      required: true,
     },
     isUser: {
       type: Boolean,
-      default: false
+      default: false,
     },
     timestamp: {
       type: Date,
-      default: () => new Date()
-    }
+      default: () => new Date(),
+    },
   },
   computed: {
     renderedMessage() {
       if (this.isUser) {
-        return this.message
+        return this.message;
       }
       // 配置marked选项
       marked.setOptions({
         breaks: true, // 支持换行
         gfm: true, // 支持GitHub风格的Markdown
         sanitize: false, // 不过滤HTML（根据需要可以开启）
-        highlight: function(code, lang) {
+        highlight: function (code, lang) {
           // 可以在这里添加代码高亮功能
-          return code
-        }
-      })
-      return marked(this.message)
-    }
+          return code;
+        },
+      });
+      return marked(this.message);
+    },
   },
   methods: {
-    formatTime
-  }
-}
+    formatTime,
+  },
+};
 </script>
 
 <style scoped>
@@ -170,12 +170,24 @@ export default {
   font-weight: bold;
 }
 
-.message-markdown h1 { font-size: 1.5em; }
-.message-markdown h2 { font-size: 1.3em; }
-.message-markdown h3 { font-size: 1.2em; }
-.message-markdown h4 { font-size: 1.1em; }
-.message-markdown h5 { font-size: 1em; }
-.message-markdown h6 { font-size: 0.9em; }
+.message-markdown h1 {
+  font-size: 1.5em;
+}
+.message-markdown h2 {
+  font-size: 1.3em;
+}
+.message-markdown h3 {
+  font-size: 1.2em;
+}
+.message-markdown h4 {
+  font-size: 1.1em;
+}
+.message-markdown h5 {
+  font-size: 1em;
+}
+.message-markdown h6 {
+  font-size: 0.9em;
+}
 
 .message-markdown p {
   margin: 0.5em 0;
@@ -195,7 +207,7 @@ export default {
   background-color: rgba(0, 0, 0, 0.1);
   padding: 0.2em 0.4em;
   border-radius: 3px;
-  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
   font-size: 0.9em;
 }
 
@@ -218,7 +230,7 @@ export default {
 .message-markdown pre code {
   background-color: transparent;
   padding: 0;
-  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
   font-size: 0.9em;
 }
 
@@ -295,9 +307,9 @@ export default {
   .message-content {
     max-width: 85%;
   }
-  
+
   .chat-message {
     padding: 0 10px;
   }
 }
-</style> 
+</style>
