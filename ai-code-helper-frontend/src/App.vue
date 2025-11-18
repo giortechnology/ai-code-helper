@@ -1,87 +1,88 @@
 <template>
-  <div class="app">
-    <!-- 头部标题 -->
-    <div class="app-header">
-      <h1 class="app-title">AI 编程小助手</h1>
-      <div class="app-subtitle">帮助您解答编程学习和求职面试相关问题</div>
-    </div>
+  <!-- 头部标题 -->
+  <header class="app-header">
+    <h1 class="app-title">AI 编程小助手</h1>
+    <p class="app-subtitle">帮助您解答编程学习和求职面试相关问题</p>
+  </header>
 
-    <!-- 聊天区域 -->
-    <div class="chat-container">
-      <!-- 消息列表 -->
-      <div class="messages-container" ref="messagesContainer">
-        <div v-if="messages.length === 0" class="welcome-message">
-          <div class="welcome-content">
-            <div class="welcome-icon">🤖</div>
-            <h2>欢迎使用 AI 编程小助手</h2>
-            <p>我可以帮助您：</p>
-            <ul>
-              <li>解答编程技术问题</li>
-              <li>提供代码示例和解释</li>
-              <li>协助求职面试准备</li>
-              <li>分享编程学习建议</li>
-            </ul>
-            <p>请随时向我提问吧！</p>
-          </div>
+  <!-- 聊天区域 -->
+  <main class="chat-container">
+    <!-- 消息列表 -->
+    <section class="messages-container" ref="messagesContainer">
+      <main v-if="messages.length === 0" class="welcome-message">
+        <section class="welcome-content">
+          <pre class="welcome-icon">🤖</pre>
+          <h2>欢迎使用 AI 编程小助手</h2>
+          <p>我可以帮助您：</p>
+          <ul>
+            <li>解答编程技术问题</li>
+            <li>提供代码示例和解释</li>
+            <li>协助求职面试准备</li>
+            <li>分享编程学习建议</li>
+          </ul>
+          <p>请随时向我提问吧！</p>
+        </section>
+      </main>
+
+      <!-- 历史消息 -->
+      <ChatMessage
+        v-for="message in messages"
+        :key="message.id"
+        :message="message.content"
+        :is-user="message.isUser"
+        :timestamp="message.timestamp"
+      />
+
+      <!-- AI 正在回复的消息 -->
+      <div v-if="isAiTyping" class="chat-message ai-message">
+        <div class="message-avatar">
+          <div class="avatar ai-avatar">AI</div>
         </div>
-
-        <!-- 历史消息 -->
-        <ChatMessage
-          v-for="message in messages"
-          :key="message.id"
-          :message="message.content"
-          :is-user="message.isUser"
-          :timestamp="message.timestamp"
-        />
-
-        <!-- AI 正在回复的消息 -->
-        <div v-if="isAiTyping" class="chat-message ai-message">
-          <div class="message-avatar">
-            <div class="avatar ai-avatar">AI</div>
-          </div>
-          <div class="message-content">
-            <div class="message-bubble">
-              <div class="ai-typing-content">
-                <div class="ai-response-text message-markdown" v-html="currentAiResponseRendered"></div>
-                <LoadingDots v-if="isStreaming" />
-              </div>
+        <div class="message-content">
+          <div class="message-bubble">
+            <div class="ai-typing-content">
+              <div
+                class="ai-response-text message-markdown"
+                v-html="currentAiResponseRendered"
+              ></div>
+              <LoadingDots v-if="isStreaming" />
             </div>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- 输入框 -->
-      <ChatInput
-        :disabled="isAiTyping"
-        @send-message="sendMessage"
-        placeholder="请输入您的编程问题..."
-      />
-    </div>
+    <!-- 输入框 -->
+    <ChatInput
+      :disabled="isAiTyping"
+      @send-message="sendMessage"
+      placeholder="请输入您的编程问题..."
+    />
+  </main>
 
-    <!-- 连接状态提示 -->
-    <div v-if="connectionError" class="connection-error">
-      <div class="error-content">
-        <span class="error-icon">⚠️</span>
-        <span>连接服务器失败，请检查后端服务是否启动</span>
-      </div>
-    </div>
-  </div>
+  <!-- 连接状态提示 -->
+  <aside v-if="connectionError" class="connection-error">
+    <section class="error-content">
+      <h1 class="error-icon">⚠️</h1>
+      <p>连接服务器失败，请检查后端服务是否启动</p>
+    </section>
+  </aside>
 </template>
 
 <script>
-import ChatMessage from './components/ChatMessage.vue'
-import ChatInput from './components/ChatInput.vue'
-import LoadingDots from './components/LoadingDots.vue'
-import { chatWithSSE } from './api/chatApi.js'
-import { generateMemoryId } from './utils/index.js'
-import { marked } from 'marked'
+import ChatMessage from "./components/ChatMessage.vue";
+import ChatInput from "./components/ChatInput.vue";
+import LoadingDots from "./components/LoadingDots.vue";
+import { chatWithSSE } from "./api/chatApi.js";
+import { generateMemoryId } from "./utils/index.js";
+import { marked } from "marked";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     ChatMessage,
     ChatInput,
-    LoadingDots
+    LoadingDots,
   },
   data() {
     return {
@@ -89,58 +90,58 @@ export default {
       memoryId: null,
       isAiTyping: false,
       isStreaming: false,
-      currentAiResponse: '',
+      currentAiResponse: "",
       currentEventSource: null,
-      connectionError: false
-    }
+      connectionError: false,
+    };
   },
   computed: {
     currentAiResponseRendered() {
-      if (!this.currentAiResponse) return ''
+      if (!this.currentAiResponse) return "";
       // 配置marked选项
       marked.setOptions({
         breaks: true, // 支持换行
         gfm: true, // 支持GitHub风格的Markdown
         sanitize: false, // 不过滤HTML（根据需要可以开启）
-        highlight: function(code, lang) {
+        highlight: function (code, lang) {
           // 可以在这里添加代码高亮功能
-          return code
-        }
-      })
-      return marked(this.currentAiResponse)
-    }
+          return code;
+        },
+      });
+      return marked(this.currentAiResponse);
+    },
   },
   methods: {
     sendMessage(message) {
       // 添加用户消息
-      this.addMessage(message, true)
-      
+      this.addMessage(message, true);
+
       // 开始AI回复
-      this.startAiResponse(message)
+      this.startAiResponse(message);
     },
-    
+
     addMessage(content, isUser = false) {
       const message = {
         id: Date.now() + Math.random(),
         content,
         isUser,
-        timestamp: new Date()
-      }
-      this.messages.push(message)
-      this.scrollToBottom()
+        timestamp: new Date(),
+      };
+      this.messages.push(message);
+      this.scrollToBottom();
     },
-    
+
     startAiResponse(userMessage) {
-      this.isAiTyping = true
-      this.isStreaming = true
-      this.currentAiResponse = ''
-      this.connectionError = false
-      
+      this.isAiTyping = true;
+      this.isStreaming = true;
+      this.currentAiResponse = "";
+      this.connectionError = false;
+
       // 关闭之前的连接
       if (this.currentEventSource) {
-        this.currentEventSource.close()
+        this.currentEventSource.close();
       }
-      
+
       // 开始SSE连接
       this.currentEventSource = chatWithSSE(
         this.memoryId,
@@ -148,77 +149,77 @@ export default {
         this.handleAiMessage,
         this.handleAiError,
         this.handleAiClose
-      )
+      );
     },
-    
+
     handleAiMessage(data) {
-      this.currentAiResponse += data
-      this.scrollToBottom()
+      this.currentAiResponse += data;
+      this.scrollToBottom();
     },
-    
+
     handleAiError(error) {
-      console.error('AI 回复出错:', error)
-      this.connectionError = true
-      this.finishAiResponse()
-      
+      console.error("AI 回复出错:", error);
+      this.connectionError = true;
+      this.finishAiResponse();
+
       // 5秒后自动隐藏错误提示
       setTimeout(() => {
-        this.connectionError = false
-      }, 5000)
+        this.connectionError = false;
+      }, 5000);
     },
-    
+
     handleAiClose() {
-      this.finishAiResponse()
+      this.finishAiResponse();
     },
-    
+
     finishAiResponse() {
-      this.isStreaming = false
-      
+      this.isStreaming = false;
+
       // 如果有内容，添加到消息列表
       if (this.currentAiResponse.trim()) {
-        this.addMessage(this.currentAiResponse.trim(), false)
+        this.addMessage(this.currentAiResponse.trim(), false);
       }
-      
+
       // 重置状态
-      this.isAiTyping = false
-      this.currentAiResponse = ''
-      
+      this.isAiTyping = false;
+      this.currentAiResponse = "";
+
       // 重置连接错误状态（确保正常结束时清除错误提示）
-      this.connectionError = false
-      
+      this.connectionError = false;
+
       // 关闭连接
       if (this.currentEventSource) {
-        this.currentEventSource.close()
-        this.currentEventSource = null
+        this.currentEventSource.close();
+        this.currentEventSource = null;
       }
     },
-    
+
     scrollToBottom() {
       this.$nextTick(() => {
-        const container = this.$refs.messagesContainer
+        const container = this.$refs.messagesContainer;
         if (container) {
-          container.scrollTop = container.scrollHeight
+          container.scrollTop = container.scrollHeight;
         }
-      })
+      });
     },
-    
+
     initializeChat() {
-      this.memoryId = generateMemoryId()
-      console.log('聊天室ID:', this.memoryId)
-    }
+      this.memoryId = generateMemoryId();
+      console.log("聊天室ID:", this.memoryId);
+    },
   },
-  
+
   mounted() {
-    this.initializeChat()
+    this.initializeChat();
   },
-  
+
   beforeUnmount() {
     // 组件销毁前关闭连接
     if (this.currentEventSource) {
-      this.currentEventSource.close()
+      this.currentEventSource.close();
     }
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
@@ -373,12 +374,24 @@ export default {
   font-weight: bold;
 }
 
-.ai-response-text.message-markdown h1 { font-size: 1.5em; }
-.ai-response-text.message-markdown h2 { font-size: 1.3em; }
-.ai-response-text.message-markdown h3 { font-size: 1.2em; }
-.ai-response-text.message-markdown h4 { font-size: 1.1em; }
-.ai-response-text.message-markdown h5 { font-size: 1em; }
-.ai-response-text.message-markdown h6 { font-size: 0.9em; }
+.ai-response-text.message-markdown h1 {
+  font-size: 1.5em;
+}
+.ai-response-text.message-markdown h2 {
+  font-size: 1.3em;
+}
+.ai-response-text.message-markdown h3 {
+  font-size: 1.2em;
+}
+.ai-response-text.message-markdown h4 {
+  font-size: 1.1em;
+}
+.ai-response-text.message-markdown h5 {
+  font-size: 1em;
+}
+.ai-response-text.message-markdown h6 {
+  font-size: 0.9em;
+}
 
 .ai-response-text.message-markdown p {
   margin: 0.5em 0;
@@ -398,7 +411,7 @@ export default {
   background-color: rgba(0, 0, 0, 0.1);
   padding: 0.2em 0.4em;
   border-radius: 3px;
-  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
   font-size: 0.9em;
 }
 
@@ -413,7 +426,7 @@ export default {
 .ai-response-text.message-markdown pre code {
   background-color: transparent;
   padding: 0;
-  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
   font-size: 0.9em;
 }
 
@@ -510,25 +523,25 @@ export default {
   .app-header {
     padding: 15px;
   }
-  
+
   .app-title {
     font-size: 20px;
   }
-  
+
   .messages-container {
     padding: 15px 0;
   }
-  
+
   .welcome-content {
     padding: 0 10px;
   }
-  
+
   .message-content {
     max-width: 85%;
   }
-  
+
   .chat-message {
     padding: 0 10px;
   }
 }
-</style> 
+</style>
