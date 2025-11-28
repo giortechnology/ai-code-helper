@@ -1,6 +1,6 @@
 <template>
-  <div class="chat-input">
-    <div class="input-container">
+  <section class="chat-input">
+    <section class="input-container">
       <textarea
         ref="inputRef"
         v-model="inputMessage"
@@ -11,66 +11,68 @@
         @keydown="handleKeyDown"
         @input="adjustHeight"
       />
-      <button
-        :disabled="disabled || !inputMessage.trim()"
-        @click="sendMessage"
-        class="send-button"
-      >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M2 21l21-9L2 3v7l15 2-15 2v7z" fill="currentColor"/>
+      <button :disabled="disabled || !inputMessage.trim()" @click="sendMessage" class="send-button">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M2 21l21-9L2 3v7l15 2-15 2v7z" fill="currentColor" />
         </svg>
       </button>
-    </div>
-  </div>
+    </section>
+  </section>
 </template>
 
 <script>
 export default {
-  name: 'ChatInput',
+  name: "ChatInput",
   props: {
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     placeholder: {
       type: String,
-      default: '请输入您的问题...'
-    }
+      default: "请输入您的问题...",
+    },
   },
   data() {
     return {
-      inputMessage: ''
-    }
+      inputMessage: "",
+    };
   },
   methods: {
     sendMessage() {
       if (this.inputMessage.trim() && !this.disabled) {
-        this.$emit('send-message', this.inputMessage.trim())
-        this.inputMessage = ''
-        this.adjustHeight()
+        this.$emit("send-message", this.inputMessage.trim());
+        this.inputMessage = "";
+        this.adjustHeight();
       }
     },
     handleKeyDown(event) {
-      if (event.key === 'Enter' && !event.shiftKey) {
-        event.preventDefault()
-        this.sendMessage()
+      if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        this.sendMessage();
       }
     },
     adjustHeight() {
       this.$nextTick(() => {
-        const textarea = this.$refs.inputRef
-        textarea.style.height = 'auto'
-        textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px'
-      })
+        const textarea = this.$refs.inputRef;
+        textarea.style.height = "auto";
+        textarea.style.height = Math.min(textarea.scrollHeight, 120) + "px";
+      });
     },
     focus() {
-      this.$refs.inputRef.focus()
-    }
+      this.$refs.inputRef.focus();
+    },
   },
   mounted() {
-    this.adjustHeight()
-  }
-}
+    this.adjustHeight();
+  },
+};
 </script>
 
 <style scoped>
@@ -141,13 +143,13 @@ export default {
   .chat-input {
     padding: 15px;
   }
-  
+
   .input-container {
     gap: 8px;
   }
-  
+
   .input-textarea {
     font-size: 16px; /* 防止在移动设备上自动缩放 */
   }
 }
-</style> 
+</style>

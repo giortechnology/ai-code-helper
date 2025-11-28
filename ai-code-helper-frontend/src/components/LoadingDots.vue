@@ -1,15 +1,13 @@
 <template>
-  <div class="loading-dots">
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-  </div>
+  <span class="loading-dots">
+    <pre v-for="_ in 3" class="dot" />
+  </span>
 </template>
 
 <script>
 export default {
-  name: 'LoadingDots'
-}
+  name: "LoadingDots",
+};
 </script>
 
 <style scoped>
@@ -38,7 +36,9 @@ export default {
 }
 
 @keyframes bounce {
-  0%, 80%, 100% {
+  0%,
+  80%,
+  100% {
     transform: scale(0);
     opacity: 0.5;
   }
@@ -47,4 +47,4 @@ export default {
     opacity: 1;
   }
 }
-</style> 
+</style>
